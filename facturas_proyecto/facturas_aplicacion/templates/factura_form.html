@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block template %}
+<h1>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Factura</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+<a href="{% url 'factura_list' %}">Cancelar</a>
+{% endblock %}

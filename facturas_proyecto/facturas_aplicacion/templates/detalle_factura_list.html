@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block template %}
+<h1>Detalles de Factura {{ factura.numero }}</h1>
+<a href="{% url 'detalle_factura_create' factura.pk %}">Añadir Detalle</a>
+<table>
+    <tr>
+        <th>Descripción</th>
+        <th>Cantidad</th>
+        <th>Precio Unitario</th>
+        <th>Descuento</th>
+        <th>Subtotal</th>
+        <th>Acciones</th>
+    </tr>
+    {% for detalle in detalles %}
+    <tr>
+        <td>{{ detalle.descripcion }}</td>
+        <td>{{ detalle.cantidad }}</td>
+        <td>{{ detalle.precio_unitario }}</td>
+        <td>{{ detalle.descuento }}</td>
+        <td>{{ detalle.subtotal }}</td>
+        <td>
+            <a href="{% url 'detalle_factura_update' detalle.pk %}">Editar</a>
+            <a href="{% url 'detalle_factura_delete' detalle.pk %}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'factura_list' %}">Volver a Facturas</a>
+{% endblock %}

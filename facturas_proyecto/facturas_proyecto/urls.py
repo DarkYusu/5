@@ -15,14 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from facturas_aplicacion.views import index,empresas,receptores,facturas,SignupView
-
+from facturas_aplicacion.views import (FacturaListView, FacturaCreateView, FacturaUpdateView, FacturaDeleteView,DetalleFacturaListView, DetalleFacturaCreateView, DetalleFacturaUpdateView, DetalleFacturaDeleteView,index, SignupView)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('signup/', SignupView.as_view(), name='signup'),
     path('', index, name='index'),
-    path('bills/',facturas, name='bills'),
-    path('receivers/',receptores, name='receivers'),
-    path('companies/',empresas, name='companies'),
+    path('facturas/', FacturaListView.as_view(), name='factura_list'),
+    path('facturas/create/', FacturaCreateView.as_view(), name='factura_create'),
+    path('facturas/<int:pk>/update/', FacturaUpdateView.as_view(), name='factura_update'),
+    path('facturas/<int:pk>/delete/', FacturaDeleteView.as_view(), name='factura_delete'),
+    path('facturas/<int:factura_id>/detalles/', DetalleFacturaListView.as_view(), name='detalle_factura_list'),
+    path('facturas/<int:factura_id>/detalles/create/', DetalleFacturaCreateView.as_view(), name='detalle_factura_create'),
+    path('detalles/<int:pk>/update/', DetalleFacturaUpdateView.as_view(), name='detalle_factura_update'),
+    path('detalles/<int:pk>/delete/', DetalleFacturaDeleteView.as_view(), name='detalle_factura_delete'),
 ]

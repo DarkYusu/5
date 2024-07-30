@@ -1,33 +1,27 @@
 {% extends 'base.html' %}
-
-{% block title %}Facturas{% endblock %}
-
 {% block template %}
-<h3>Listado de Facturas</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Numero</th>
-            <th>Fecha</th>
-            <th>Empresa</th>
-            <th>Receptor</th>
-            <th>Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for factura in facturas %}
-            <tr>
-                <td>{{ factura.numero }}</td>
-                <td>{{ factura.fecha_emision }}</td>
-                <td>{{ factura.empresa }}</td>
-                <td>{{ factura.receptor }}</td>
-                <td>{{ factura.forma_pago }}</td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td colspan="5">No hay facturas disponibles.</td>
-            </tr>
-        {% endfor %}
-    </tbody>
+<h1>Facturas</h1>
+<a href="{% url 'factura_create' %}">Crear nueva factura</a>
+<table>
+    <tr>
+        <th>Número</th>
+        <th>Fecha de Emisión</th>
+        <th>Empresa</th>
+        <th>Receptor</th>
+        <th>Acciones</th>
+    </tr>
+    {% for factura in facturas %}
+    <tr>
+        <td>{{ factura.numero }}</td>
+        <td>{{ factura.fecha_emision }}</td>
+        <td>{{ factura.empresa.razon_social }}</td>
+        <td>{{ factura.receptor.razon_social }}</td>
+        <td>
+            <a href="{% url 'factura_update' factura.pk %}">Editar</a>
+            <a href="{% url 'factura_delete' factura.pk %}">Eliminar</a>
+            <a href="{% url 'detalle_factura_list' factura.pk %}">Detalles</a>
+        </td>
+    </tr>
+    {% endfor %}
 </table>
 {% endblock %}

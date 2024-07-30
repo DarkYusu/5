@@ -9,14 +9,9 @@
                 <a class="nav-link" href="/">Inicio</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'bills' %}">Facturas</a>
+                <a class="nav-link" href="{% url 'factura_list' %}">Facturas</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'companies' %}">Empresas</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'receivers' %}">Receptores</a>
-            </li>
+  
             {% if user.is_authenticated %}
                         <!-- Mostrar solo cuando el usuario está logueado -->
                         <li class="nav-item">
