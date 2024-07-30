@@ -15,7 +15,7 @@ class SignupView(CreateView):
     form_class = UserCreationForm
     template_name = 'signup.html'
     success_url = '/'
-   
+    
 class FacturaListView(View):
     def get(self, request):
         facturas = Factura.objects.all()
@@ -201,22 +201,11 @@ class ReceptorDeleteView(View):
 def factura_detail(request, pk):
     factura = get_object_or_404(Factura, pk=pk)
     detalles = DetalleFactura.objects.filter(factura=factura)
-    
-    # Calcula el subtotal original sin aplicar el descuento
     subtotal_original = sum(detalle.cantidad * detalle.precio_unitario for detalle in detalles)
-    
-    # Calcula el descuento total aplicado
     descuento_total = sum(detalle.cantidad * detalle.descuento for detalle in detalles)
-    
-    # Calcula el subtotal con descuento aplicado
     subtotal_con_descuento = subtotal_original - descuento_total
-    
-    # Calcula el IVA (19%)
     iva_monto = subtotal_con_descuento * 0.19
-    
-    # Calcula el total
     total = subtotal_con_descuento + iva_monto
-    
     return render(request, 'factura_detail.html', {
         'factura': factura,
         'detalles': detalles,
