@@ -16,7 +16,12 @@ class Receptor(models.Model):
 
     def __str__(self):
         return self.razon_social
+class FormaPago(models.Model):
+    forma_pago = models.CharField(max_length=100, unique=True)
 
+    def __str__(self):
+        return self.forma_pago
+    
 class Factura(models.Model):
     TIPO_FACTURA_CHOICES = [
         ('FE', 'Factura Electrónica'),
@@ -29,10 +34,11 @@ class Factura(models.Model):
     numero = models.AutoField(primary_key=True)
     fecha_emision = models.DateField()
     tipo_factura = models.CharField(max_length=2, choices=TIPO_FACTURA_CHOICES)
-    forma_pago = models.CharField(max_length=50)
+    forma_pago = models.ForeignKey(FormaPago, on_delete=models.SET_NULL, null=True, blank=True)  # Relación con FormaPago
     
     def __str__(self):
         return f"Factura {self.numero} - {self.fecha_emision}"
+
 
 class DetalleFactura(models.Model):
     factura = models.ForeignKey('Factura', related_name='detalles', on_delete=models.CASCADE)
@@ -53,9 +59,3 @@ class FacturaEstado(models.Model):
 
     def __str__(self):
         return self.estado
-
-class FormaPago(models.Model):
-    forma_pago = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.forma_pago
