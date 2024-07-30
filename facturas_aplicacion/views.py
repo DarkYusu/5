@@ -16,16 +16,37 @@ class SignupView(CreateView):
     template_name = 'signup.html'
     success_url = '/'
     
+#Vista Lista de Facturas
 class FacturaListView(View):
     def get(self, request):
         facturas = Factura.objects.all()
         return render(request, 'lista_facturas.html', {'facturas': facturas})
 
+# Vista Factura completa
+def factura_detail(request, pk):
+    factura = get_object_or_404(Factura, pk=pk)
+    detalles = DetalleFactura.objects.filter(factura=factura)
+    subtotal_original = sum(detalle.cantidad * detalle.precio_unitario for detalle in detalles)
+    descuento_total = sum(detalle.cantidad * detalle.descuento for detalle in detalles)
+    subtotal_con_descuento = subtotal_original - descuento_total
+    iva_monto = subtotal_con_descuento * 0.19
+    total = subtotal_con_descuento + iva_monto
+    return render(request, 'factura_detail.html', {
+        'factura': factura,
+        'detalles': detalles,
+        'subtotal': subtotal_con_descuento,
+        'iva_monto': iva_monto,
+        'total': total,
+        'descuento_total': descuento_total
+    })
+
+#Vista Lista de Empresas
 class EmpresaListView(View):
     def get(self, request):
         empresas = Empresa.objects.all()
         return render(request, 'lista_empresas.html', {'empresas': empresas})
 
+#Vista Lista de Receptores
 class ReceptorListView(View):
     def get(self, request):
         receptores= Receptor.objects.all()
@@ -196,22 +217,4 @@ class ReceptorDeleteView(View):
         receptor = get_object_or_404(Receptor, pk=pk)
         receptor.delete()
         return redirect('receptor_list')
-
-# Detalle Factura completa
-def factura_detail(request, pk):
-    factura = get_object_or_404(Factura, pk=pk)
-    detalles = DetalleFactura.objects.filter(factura=factura)
-    subtotal_original = sum(detalle.cantidad * detalle.precio_unitario for detalle in detalles)
-    descuento_total = sum(detalle.cantidad * detalle.descuento for detalle in detalles)
-    subtotal_con_descuento = subtotal_original - descuento_total
-    iva_monto = subtotal_con_descuento * 0.19
-    total = subtotal_con_descuento + iva_monto
-    return render(request, 'factura_detail.html', {
-        'factura': factura,
-        'detalles': detalles,
-        'subtotal': subtotal_con_descuento,
-        'iva_monto': iva_monto,
-        'total': total,
-        'descuento_total': descuento_total
-    })
 
