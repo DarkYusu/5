@@ -3,11 +3,19 @@
 {% block title %}Página de Inicio{% endblock %}
 
 {% block template %}
+<div class="container">
+    <h1 class="mb-4 text-center">Página de Inicio</h1>
     
-<a href="{% url 'bills' %}" class="btn btn-primary">Jugar</a>
-<a class="" href="{% url 'receivers' %}">Inicio <span class="sr-only">(current)</span></a>
-<a class="" href="{% url 'companies' %}">Inicio <span class="sr-only">(current)</span></a>
-   
-
- 
+    <div class="row">
+        <div class="col">
+            <a href="{% url 'factura_list' %}" class="btn btn-primary btn-block">Ingresar a Listado de Facturas</a>
+        </div>
+        <div class="col">
+            <a href="{% url 'empresa_list' %}" class="btn btn-success btn-block">Ingresar a Empresas</a>
+        </div>
+        <div class="col">
+            <a href="{% url 'receptor_list' %}" class="btn btn-info btn-block">Ingresar a Receptores</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

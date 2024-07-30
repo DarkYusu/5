@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% load custom_filters %}
+{% block template %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">FACTURA</h1>
+            <div class="d-flex justify-content-between mt-4">
+                <div>
+                    <strong>EMPRESA</strong>
+                    <p>{{ factura.empresa.razon_social }}<br>{{ factura.empresa.domicilio }}</p>
+                </div>
+                <div>
+                    <strong>RECEPTOR</strong>
+                    <p>{{ factura.receptor.razon_social }}<br>{{ factura.receptor.domicilio }}</p>
+                </div>
+                <div>
+                    <strong>N° DE FACTURA</strong><br> {{ factura.numero }}<br>
+                    <strong>FECHA</strong><br> {{ factura.fecha_emision }}<br>
+                </div>
+            </div>
+            <table class="table table-bordered mt-4">
+                <thead class="thead-light">
+                    <tr>
+                        <th>CANT.</th>
+                        <th>DESCRIPCIÓN</th>
+                        <th>PRECIO UNITARIO</th>
+                        <th>DESCUENTO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detalle in detalles %}
+                    <tr>
+                        <td>{{ detalle.cantidad }}</td>
+                        <td>{{ detalle.descripcion }}</td>
+                        <td>${{ detalle.precio_unitario|default_if_none:"0"|floatformat:0 }}</td>
+                        <td>${{ detalle.descuento|default_if_none:"0"|floatformat:0 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end mt-3">
+                <table class="table">
+                    <tr>
+                        <th>Subtotal</th>
+                        <td>${{ subtotal|floatformat:0 }}</td>
+                    </tr>
+                    <tr>
+                        <th>IVA 19%</th>
+                        <td>${{ iva_monto|floatformat:0 }}</td>
+                    </tr>
+                    <tr>
+                        <th>TOTAL</th>
+                        <td>${{ total|floatformat:0 }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<a href="{% url 'factura_list' %}" class="btn btn-secondary">Volver</a>
+{% endblock %}

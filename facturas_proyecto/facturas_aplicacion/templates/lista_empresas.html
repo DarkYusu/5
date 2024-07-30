@@ -3,28 +3,40 @@
 {% block title %}Empresas{% endblock %}
 
 {% block template %}
-<h3>Listado de Empresas</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>RUT</th>
-            <th>Dirección</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for empresa in empresas %}
+<div class="container mt-4">
+    <h1 class="mb-4">Listado de Empresas</h1>
+    
+    <div class="mb-3">
+        <a href="{% url 'empresa_create' %}" class="btn btn-primary">Ingresar Empresa</a>
+    </div>
+    
+    <table class="table table-striped">
+        <thead class="thead-dark">
             <tr>
-                <td>{{ empresa.razon_social }}</td>
-                <td>{{ empresa.rut }}</td>
-                <td>{{ empresa.domicilio }}</td>
+                <th>Nombre</th>
+                <th>RUT</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
             </tr>
-        {% empty %}
-            <tr>
-                <td colspan="3">No hay empresas disponibles.</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+        </thead>
+        <tbody>
+            {% for empresa in empresas %}
+                <tr>
+                    <td>{{ empresa.razon_social }}</td>
+                    <td>{{ empresa.rut }}</td>
+                    <td>{{ empresa.domicilio }}</td>
+                    <td>
+                        <a href="{% url 'empresa_delete' empresa.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No hay empresas disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="/" class="btn btn-secondary">Regresar al menú de inicio</a>
+</div>
 {% endblock %}

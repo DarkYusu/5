@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block template %}
+<div class="container mt-4">
+    <h1 class="mb-4">{% if form.instance.pk %}Editar{% else %}Añadir{% endif %} Detalle de Factura</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'detalle_factura_list' factura_id %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

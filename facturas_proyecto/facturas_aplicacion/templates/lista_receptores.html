@@ -3,27 +3,40 @@
 {% block title %}Receptores{% endblock %}
 
 {% block template %}
-<h3>Listado de Receptores</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Razón Social</th>
-            <th>RUT</th>
-            <th>Domicilio</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for receptor in receptores %}
+<div class="container mt-4">
+    <h1 class="mb-4">Listado de Receptores</h1>
+    
+    <div class="mb-3">
+        <a href="{% url 'receptor_create' %}" class="btn btn-primary">Ingresar Receptor</a>
+    </div>
+    
+    <table class="table table-striped">
+        <thead class="thead-dark">
             <tr>
-                <td>{{ receptor.razon_social }}</td>
-                <td>{{ receptor.rut }}</td>
-                <td>{{ receptor.domicilio }}</td>
+                <th>Razón Social</th>
+                <th>RUT</th>
+                <th>Domicilio</th>
+                <th>Acciones</th>
             </tr>
-        {% empty %}
-            <tr>
-                <td colspan="3">No hay receptores disponibles.</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for receptor in receptores %}
+                <tr>
+                    <td>{{ receptor.razon_social }}</td>
+                    <td>{{ receptor.rut }}</td>
+                    <td>{{ receptor.domicilio }}</td>
+                    <td>
+                        <a href="{% url 'receptor_delete' receptor.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No hay receptores disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="/" class="btn btn-secondary">Regresar al menú de inicio</a>
+</div>
 {% endblock %}

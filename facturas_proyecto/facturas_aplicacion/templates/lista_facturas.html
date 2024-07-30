@@ -1,33 +1,45 @@
 {% extends 'base.html' %}
 
-{% block title %}Facturas{% endblock %}
-
 {% block template %}
-<h3>Listado de Facturas</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Numero</th>
-            <th>Fecha</th>
-            <th>Empresa</th>
-            <th>Receptor</th>
-            <th>Estado</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for factura in facturas %}
+<div class="container mt-4">
+    <h1 class="mb-4">Facturas</h1>
+    
+    <div class="mb-3">
+        <a href="{% url 'factura_create' %}" class="btn btn-primary">Crear nueva factura</a>
+    </div>
+    
+    <table class="table table-striped">
+        <thead class="thead-dark">
             <tr>
-                <td>{{ factura.numero }}</td>
-                <td>{{ factura.fecha_emision }}</td>
-                <td>{{ factura.empresa }}</td>
-                <td>{{ factura.receptor }}</td>
-                <td>{{ factura.forma_pago }}</td>
+                <th>Número</th>
+                <th>Fecha de Emisión</th>
+                <th>Empresa</th>
+                <th>Receptor</th>
+                <th>Acciones</th>
             </tr>
-        {% empty %}
-            <tr>
-                <td colspan="5">No hay facturas disponibles.</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for factura in facturas %}
+                <tr>
+                    <td>{{ factura.numero }}</td>
+                    <td>{{ factura.fecha_emision }}</td>
+                    <td>{{ factura.empresa.razon_social }}</td>
+                    <td>{{ factura.receptor.razon_social }}</td>
+                    <td>
+                        <a href="{% url 'factura_detail' factura.pk %}" class="btn btn-warning btn-sm">Ver Factura</a>
+                        <a href="{% url 'factura_update' factura.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'factura_delete' factura.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        <a href="{% url 'detalle_factura_list' factura.pk %}" class="btn btn-info btn-sm">Detalles</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No hay facturas disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="/" class="btn btn-secondary">Regresar al menú de inicio</a>
+</div>
 {% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block template %}
+<div class="container mt-4">
+    <h1 class="mb-4">Confirmar Eliminación</h1>
+    <p>¿Estás seguro de que deseas eliminar el detalle de la factura con la descripción "{{ detalle.descripcion }}"?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'detalle_factura_list' detalle.factura_id %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
