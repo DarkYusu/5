@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'facturas_aplicacion'
+    'facturas_aplicacion',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

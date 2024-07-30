@@ -26,6 +26,7 @@
                     <td>{{ factura.empresa.razon_social }}</td>
                     <td>{{ factura.receptor.razon_social }}</td>
                     <td>
+                        <a href="{% url 'factura_detail' factura.pk %}" class="btn btn-warning btn-sm">Ver Factura</a>
                         <a href="{% url 'factura_update' factura.pk %}" class="btn btn-warning btn-sm">Editar</a>
                         <a href="{% url 'factura_delete' factura.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
                         <a href="{% url 'detalle_factura_list' factura.pk %}" class="btn btn-info btn-sm">Detalles</a>

@@ -16,6 +16,7 @@ class Receptor(models.Model):
 
     def __str__(self):
         return self.razon_social
+    
 class FormaPago(models.Model):
     forma_pago = models.CharField(max_length=100, unique=True)
 

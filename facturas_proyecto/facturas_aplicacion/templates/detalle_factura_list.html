@@ -1,29 +1,47 @@
 {% extends 'base.html' %}
+
+{% block title %}Detalles de Factura{% endblock %}
+{% load custom_filters %}
 {% block template %}
-<h1>Detalles de Factura {{ factura.numero }}</h1>
-<a href="{% url 'detalle_factura_create' factura.pk %}">Añadir Detalle</a>
-<table>
-    <tr>
-        <th>Descripción</th>
-        <th>Cantidad</th>
-        <th>Precio Unitario</th>
-        <th>Descuento</th>
-        <th>Subtotal</th>
-        <th>Acciones</th>
-    </tr>
-    {% for detalle in detalles %}
-    <tr>
-        <td>{{ detalle.descripcion }}</td>
-        <td>{{ detalle.cantidad }}</td>
-        <td>{{ detalle.precio_unitario }}</td>
-        <td>{{ detalle.descuento }}</td>
-        <td>{{ detalle.subtotal }}</td>
-        <td>
-            <a href="{% url 'detalle_factura_update' detalle.pk %}">Editar</a>
-            <a href="{% url 'detalle_factura_delete' detalle.pk %}">Eliminar</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
-<a href="{% url 'factura_list' %}">Volver a Facturas</a>
+<div class="container mt-4">
+    <h1 class="mb-4">Detalles de Factura {{ factura.numero }}</h1>
+    
+    <div class="mb-3">
+        <a href="{% url 'detalle_factura_create' factura.pk %}" class="btn btn-primary">Añadir Detalle</a>
+    </div>
+    
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Descuento</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detalle in detalles %}
+            <tr>
+                <td>{{ detalle.descripcion }}</td>
+                <td>{{ detalle.cantidad }}</td>
+                <td>${{ detalle.precio_unitario }}</td>
+                <td>${{ detalle.descuento }}</td>
+                <td>${{ detalle.cantidad|multiply:detalle.precio_unitario|floatformat:0 }}</td>
+                <td>
+                    <a href="{% url 'detalle_factura_update' detalle.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'detalle_factura_delete' detalle.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No hay detalles disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="{% url 'factura_list' %}" class="btn btn-secondary">Volver a Facturas</a>
+</div>
 {% endblock %}

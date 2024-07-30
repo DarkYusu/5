@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
-from facturas_aplicacion.views import (FacturaListView, EmpresaListView, ReceptorListView, FacturaCreateView, FacturaUpdateView, FacturaDeleteView,DetalleFacturaListView, DetalleFacturaCreateView, DetalleFacturaUpdateView, DetalleFacturaDeleteView, EmpresaCreateView, EmpresaUpdateView,EmpresaDeleteView,ReceptorCreateView,ReceptorUpdateView,ReceptorDeleteView, index, SignupView)
+from facturas_aplicacion.views import (FacturaListView, EmpresaListView, ReceptorListView, FacturaCreateView, FacturaUpdateView,factura_detail, FacturaDeleteView,DetalleFacturaListView, DetalleFacturaCreateView, DetalleFacturaUpdateView, DetalleFacturaDeleteView, EmpresaCreateView, EmpresaUpdateView,EmpresaDeleteView,ReceptorCreateView,ReceptorUpdateView,ReceptorDeleteView, index, SignupView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +29,7 @@ urlpatterns = [
     path('facturas/<int:pk>/delete/', login_required(FacturaDeleteView.as_view()), name='factura_delete'),
     path('facturas/<int:factura_id>/detalles/', login_required(DetalleFacturaListView.as_view()), name='detalle_factura_list'),
     path('facturas/<int:factura_id>/detalles/create/', login_required(DetalleFacturaCreateView.as_view()), name='detalle_factura_create'),
+    path('factura/<int:pk>/', login_required(factura_detail), name='factura_detail'),
     path('detalles/<int:pk>/update/', login_required(DetalleFacturaUpdateView.as_view()), name='detalle_factura_update'),
     path('detalles/<int:pk>/delete/', login_required(DetalleFacturaDeleteView.as_view()), name='detalle_factura_delete'),
     
