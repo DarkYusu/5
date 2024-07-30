@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Receptores{% endblock %}
+
+{% block template %}
+<h3>Listado de Receptores</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Razón Social</th>
+            <th>RUT</th>
+            <th>Domicilio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for receptor in receptores %}
+            <tr>
+                <td>{{ receptor.razon_social }}</td>
+                <td>{{ receptor.rut }}</td>
+                <td>{{ receptor.domicilio }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">No hay receptores disponibles.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

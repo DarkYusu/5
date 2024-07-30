@@ -70,3 +70,4 @@ class FormaPagoForm(forms.ModelForm):
         labels = {
             'forma_pago': 'Forma de Pago',
         }
+

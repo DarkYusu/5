@@ -1,14 +1,36 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Mi Aplicación</a>
+    <a class="navbar-brand" href="/">Mi Aplicación</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Inicio</a>
             </li>
-          
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'bills' %}">Facturas</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'companies' %}">Empresas</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'receivers' %}">Receptores</a>
+            </li>
+            {% if user.is_authenticated %}
+                        <!-- Mostrar solo cuando el usuario está logueado -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                        </li>
+                        {% else %}
+                        <!-- Mostrar solo cuando el usuario no está logueado -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'signup' %}">Crear Cuenta</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                        </li>
+                        {% endif %}
         </ul>
     </div>
 </nav>
