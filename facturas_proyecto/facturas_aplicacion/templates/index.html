@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Página de Inicio{% endblock %}
+
+{% block template %}
+  
+
+    <h3>Listado de Facturas</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Fecha</th>
+                <th>Empresa</th>
+                <th>Receptor</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for factura in facturas %}
+                <tr>
+                    <td>{{ factura.numero }}</td>
+                    <td>{{ factura.fecha_emision }}</td>
+                    <td>{{ factura.empresa }}</td>
+                    <td>{{ factura.receptor }}</td>
+                    <td>{{ factura.forma_pago }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">No hay facturas disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Listado de Empresas</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>RUT</th>
+                <th>Dirección</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empresa in empresas %}
+                <tr>
+                    <td>{{ empresa.razon_social }}</td>
+                    <td>{{ empresa.rut }}</td>
+                    <td>{{ empresa.domicilio }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No hay empresas disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Listado de Receptores</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Razón Social</th>
+                <th>RUT</th>
+                <th>Domicilio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receptor in receptores %}
+                <tr>
+                    <td>{{ receptor.razon_social }}</td>
+                    <td>{{ receptor.rut }}</td>
+                    <td>{{ receptor.domicilio }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No hay receptores disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
