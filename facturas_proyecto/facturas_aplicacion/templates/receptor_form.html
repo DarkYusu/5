@@ -2,14 +2,14 @@
 
 {% block template %}
 <div class="container mt-4">
-    <h1 class="mb-4">{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Factura</h1>
+    <h1 class="mb-4">{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Receptor</h1>
     <form method="post">
         {% csrf_token %}
         <div class="mb-3">
             {{ form.as_p }}
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
-        <a href="{% url 'factura_list' %}" class="btn btn-secondary">Cancelar</a>
+        <a href="{% url 'receptor_list' %}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 {% endblock %}

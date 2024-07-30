@@ -13,11 +13,8 @@ class FacturaForm(forms.ModelForm):
             'tipo_factura': 'Tipo de Factura',
             'forma_pago': 'Forma de Pago',
         }
-    
-    # Puedes definir el campo 'forma_pago' explícitamente si es necesario
+
     forma_pago = forms.ModelChoiceField(queryset=FormaPago.objects.all(), required=True)
-
-
 
 class DetalleFacturaForm(forms.ModelForm):
     class Meta:

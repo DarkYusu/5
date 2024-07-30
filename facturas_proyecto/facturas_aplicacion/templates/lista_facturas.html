@@ -1,27 +1,44 @@
 {% extends 'base.html' %}
+
 {% block template %}
-<h1>Facturas</h1>
-<a href="{% url 'factura_create' %}">Crear nueva factura</a>
-<table>
-    <tr>
-        <th>Número</th>
-        <th>Fecha de Emisión</th>
-        <th>Empresa</th>
-        <th>Receptor</th>
-        <th>Acciones</th>
-    </tr>
-    {% for factura in facturas %}
-    <tr>
-        <td>{{ factura.numero }}</td>
-        <td>{{ factura.fecha_emision }}</td>
-        <td>{{ factura.empresa.razon_social }}</td>
-        <td>{{ factura.receptor.razon_social }}</td>
-        <td>
-            <a href="{% url 'factura_update' factura.pk %}">Editar</a>
-            <a href="{% url 'factura_delete' factura.pk %}">Eliminar</a>
-            <a href="{% url 'detalle_factura_list' factura.pk %}">Detalles</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="container mt-4">
+    <h1 class="mb-4">Facturas</h1>
+    
+    <div class="mb-3">
+        <a href="{% url 'factura_create' %}" class="btn btn-primary">Crear nueva factura</a>
+    </div>
+    
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Número</th>
+                <th>Fecha de Emisión</th>
+                <th>Empresa</th>
+                <th>Receptor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for factura in facturas %}
+                <tr>
+                    <td>{{ factura.numero }}</td>
+                    <td>{{ factura.fecha_emision }}</td>
+                    <td>{{ factura.empresa.razon_social }}</td>
+                    <td>{{ factura.receptor.razon_social }}</td>
+                    <td>
+                        <a href="{% url 'factura_update' factura.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'factura_delete' factura.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        <a href="{% url 'detalle_factura_list' factura.pk %}" class="btn btn-info btn-sm">Detalles</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No hay facturas disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="/" class="btn btn-secondary">Regresar al menú de inicio</a>
+</div>
 {% endblock %}
