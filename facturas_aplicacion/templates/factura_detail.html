@@ -19,6 +19,7 @@
                 <div>
                     <strong>N° DE FACTURA</strong><br> {{ factura.numero }}<br>
                     <strong>FECHA</strong><br> {{ factura.fecha_emision }}<br>
+                    <strong>FORMA PAGO</strong><br> {{ factura.forma_pago }}<br>
                 </div>
             </div>
             <table class="table table-bordered mt-4">
@@ -55,6 +56,11 @@
                         <th>TOTAL</th>
                         <td>${{ total|floatformat:0 }}</td>
                     </tr>
+                    <tr>
+                        <th>FORMA PAGO</th>
+                        <td>{{ factura.forma_pago }}</td>
+                    </tr>
+                    
                 </table>
             </div>
         </div>
